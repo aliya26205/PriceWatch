@@ -1,81 +1,239 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PriceWatch - Login</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PriceWatch | Login</title>
 
-    <link rel="stylesheet" href="css/style.css">
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Segoe UI, sans-serif;
+}
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+body{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(-45deg,#4facfe,#00f2fe,#667eea,#764ba2);
+    background-size:400% 400%;
+    animation:bg 12s ease infinite;
+}
 
-    <script src="js/config.js"></script>
-    <script src="js/supabase.js"></script>
-    <script src="js/auth.js"></script>
+@keyframes bg{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+}
+
+.container{
+    width:950px;
+    display:flex;
+    border-radius:20px;
+    overflow:hidden;
+    background:rgba(255,255,255,.15);
+    backdrop-filter:blur(20px);
+    box-shadow:0 20px 50px rgba(0,0,0,.35);
+}
+
+.left{
+    width:50%;
+    padding:60px;
+    color:white;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+}
+
+.left h1{
+    font-size:48px;
+    margin-bottom:15px;
+}
+
+.left h3{
+    margin-bottom:20px;
+    font-weight:400;
+}
+
+.left p{
+    line-height:1.8;
+    color:#f1f1f1;
+}
+
+.right{
+    width:50%;
+    background:white;
+    padding:50px;
+}
+
+.right h2{
+    text-align:center;
+    color:#333;
+    margin-bottom:30px;
+}
+
+label{
+    display:block;
+    margin-top:15px;
+    margin-bottom:8px;
+    font-weight:bold;
+}
+
+input{
+    width:100%;
+    padding:14px;
+    border-radius:10px;
+    border:1px solid #ccc;
+    outline:none;
+    font-size:15px;
+}
+
+input:focus{
+    border-color:#007BFF;
+    box-shadow:0 0 10px rgba(0,123,255,.3);
+}
+
+button{
+    width:100%;
+    padding:14px;
+    margin-top:25px;
+    border:none;
+    border-radius:10px;
+    background:linear-gradient(90deg,#0072ff,#00c6ff);
+    color:white;
+    font-size:17px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+button:hover{
+    transform:scale(1.03);
+}
+
+#message{
+    margin-top:15px;
+    text-align:center;
+    font-weight:bold;
+}
+
+.register{
+    text-align:center;
+    margin-top:20px;
+}
+
+.register a{
+    color:#007BFF;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+@media(max-width:900px){
+
+.container{
+    width:95%;
+    flex-direction:column;
+}
+
+.left,.right{
+    width:100%;
+}
+
+}
+</style>
+
 </head>
 
 <body>
 
-    <h1>Login</h1>
+<div class="container">
 
-    <form id="loginForm">
+<div class="left">
 
-        <div>
-            <label>Email</label><br>
-            <input
-                type="email"
-                id="email"
-                required
-            >
-        </div>
+<h1>🛒 PriceWatch</h1>
 
-        <br>
+<h3>Automated Product Price Monitoring System</h3>
 
-        <div>
-            <label>Password</label><br>
-            <input
-                type="password"
-                id="password"
-                required
-            >
-        </div>
+<p>
+Track Amazon product prices automatically using UiPath and Supabase.
+Set your target price and monitor products without checking them manually every day.
+</p>
 
-        <br>
+</div>
 
-        <button type="submit">
-            Login
-        </button>
+<div class="right">
 
-    </form>
+<h2>Welcome Back 👋</h2>
 
-    <br>
+<form id="loginForm">
 
-    <a href="register.html">
-        Don't have an account? Register
-    </a>
+<label>Email</label>
 
-    <script>
+<input
+type="email"
+id="email"
+placeholder="Enter Email"
+required>
 
-        document
-            .getElementById("loginForm")
-            .addEventListener("submit", async function(e){
+<label>Password</label>
 
-                e.preventDefault();
+<input
+type="password"
+id="password"
+placeholder="Enter Password"
+required>
 
-                const email =
-                    document.getElementById("email").value;
+<button type="submit">
+🔐 Login
+</button>
 
-                const password =
-                    document.getElementById("password").value;
+</form>
 
-                await loginUser(
-                    email,
-                    password
-                );
+<p id="message"></p>
 
-            });
+<div class="register">
+Don't have an account?
+<a href="register.html">Register</a>
+</div>
 
-    </script>
+</div>
+
+</div>
+
+<script>
+
+document.getElementById("loginForm").addEventListener("submit",function(e){
+
+e.preventDefault();
+
+let email=document.getElementById("email").value;
+let password=document.getElementById("password").value;
+
+if(email==="admin@gmail.com" && password==="123456"){
+
+document.getElementById("message").style.color="green";
+document.getElementById("message").innerHTML="✅ Login Successful";
+
+setTimeout(function(){
+
+window.location.href="index.html";
+
+},1500);
+
+}
+else{
+
+document.getElementById("message").style.color="red";
+document.getElementById("message").innerHTML="❌ Invalid Email or Password";
+
+}
+
+});
+
+</script>
 
 </body>
 </html>
