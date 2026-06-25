@@ -1,86 +1,190 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Product - PriceWatch</title>
+    <!-- CSS goes here -->
+    <style>
+        *{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
 
-    <link rel="stylesheet" href="css/style.css">
+body{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+    background:linear-gradient(135deg,#667eea,#764ba2,#6dd5fa);
+    background-size:400% 400%;
+    animation:gradientMove 10s ease infinite;
+}
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+@keyframes gradientMove{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+}
 
-    <script src="js/config.js"></script>
-    <script src="js/supabase.js"></script>
-    <script src="js/auth.js"></script>
-    <script src="js/products.js"></script>
+.container{
+    width:420px;
+    padding:35px;
+    border-radius:20px;
+    background:rgba(255,255,255,0.15);
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+    border:1px solid rgba(255,255,255,0.25);
+    box-shadow:0 15px 35px rgba(0,0,0,0.25);
+    color:white;
+}
+
+h2{
+    text-align:center;
+    margin-bottom:25px;
+    font-size:30px;
+}
+
+label{
+    display:block;
+    margin-top:15px;
+    margin-bottom:8px;
+    font-weight:600;
+}
+
+input{
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:12px;
+    outline:none;
+    font-size:15px;
+    background:rgba(255,255,255,.25);
+    color:white;
+    transition:.3s;
+}
+
+input::placeholder{
+    color:#f2f2f2;
+}
+
+input:focus{
+    background:rgba(255,255,255,.35);
+    transform:scale(1.02);
+}
+
+button{
+    width:100%;
+    margin-top:25px;
+    padding:14px;
+    border:none;
+    border-radius:12px;
+    background:#00c6ff;
+    background:linear-gradient(to right,#0072ff,#00c6ff);
+    color:white;
+    font-size:17px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.3s;
+}
+
+button:hover{
+    transform:translateY(-3px);
+    box-shadow:0 8px 20px rgba(0,198,255,.5);
+}
+
+#message{
+    margin-top:18px;
+    text-align:center;
+    font-weight:bold;
+    font-size:15px;
+}
+    </style>
 </head>
 
 <body>
 
-    <h1>Track New Product</h1>
+<div class="container">
 
-    <hr>
+    <h2>🛒 PriceWatch</h2>
 
     <form id="productForm">
 
-        <div>
+        <label>Product Name</label>
+        <input
+            type="text"
+            id="name"
+            placeholder="Enter Product Name"
+            required>
 
-            <label>Paste Product URL</label>
+        <label>Amazon Product URL</label>
+        <input
+            type="url"
+            id="url"
+            placeholder="Paste Amazon Product Link"
+            required>
 
-            <br><br>
-
-            <input
-                type="url"
-                id="productUrl"
-                placeholder="https://..."
-                required
-            >
-
-        </div>
-
-        <br>
+        <label>Target Price (₹)</label>
+        <input
+            type="number"
+            id="targetPrice"
+            placeholder="Enter Target Price"
+            required>
 
         <button type="submit">
-            Track Product
+            ➕ Add Product
         </button>
 
     </form>
 
-    <br>
+    <p id="message"></p>
 
-    <button onclick="window.location.href='index.html'">
-        Back to Dashboard
-    </button>
+</div>
 
-    <hr>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-    <h2>Supported Websites</h2>
+<script>
 
-    <ul>
-        <li>Amazon</li>
-        <li>Flipkart</li>
-        <li>Meesho</li>
-        <li>Demo Website</li>
-    </ul>
+const supabaseUrl = "YOUR_SUPABASE_URL";
+const supabaseKey = "YOUR_SUPABASE_ANON_KEY";
 
-    <script>
+const supabase = window.supabase.createClient(
+    supabaseUrl,
+    supabaseKey
+);
 
-        checkLogin();
+document.getElementById("productForm").addEventListener("submit", async function(e){
 
-        document
-        .getElementById("productForm")
-        .addEventListener("submit", async function(e){
+    e.preventDefault();
 
-            e.preventDefault();
+    const name = document.getElementById("name").value;
+    const url = document.getElementById("url").value;
+    const targetPrice = document.getElementById("targetPrice").value;
 
-            const productUrl =
-                document.getElementById("productUrl").value;
+    const { error } = await supabase
+        .from("products")
+        .insert([
+            {
+                name: name,
+                url: url,
+                target_price: targetPrice
+            }
+        ]);
 
-            await addProduct(productUrl);
+    if(error){
+        document.getElementById("message").style.color = "#ff6b6b";
+        document.getElementById("message").innerHTML = "❌ Error adding product!";
+        console.log(error);
+    }else{
+        document.getElementById("message").style.color = "#90EE90";
+        document.getElementById("message").innerHTML = "✅ Product added successfully!";
+        document.getElementById("productForm").reset();
+    }
 
-        });
+});
 
-    </script>
+</script>
 
 </body>
+
 </html>
