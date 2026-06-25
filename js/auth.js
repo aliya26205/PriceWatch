@@ -5,7 +5,7 @@
 // Register User
 async function registerUser(fullName, email, phone, password) {
 
-    const { error } = await supabase
+    const { error } = await supabaseClient
         .from("users")
         .insert([
             {
@@ -17,9 +17,7 @@ async function registerUser(fullName, email, phone, password) {
         ]);
 
     if (error) {
-
         alert(error.message);
-
         return;
     }
 
@@ -35,7 +33,7 @@ async function registerUser(fullName, email, phone, password) {
 
 async function loginUser(email, password) {
 
-    const { data, error } = await supabase
+    const { data, error } = await supabaseClient
         .from("users")
         .select("*")
         .eq("email", email)
@@ -76,8 +74,7 @@ function logoutUser() {
 
 function checkLogin() {
 
-    const user =
-        localStorage.getItem("currentUser");
+    const user = localStorage.getItem("currentUser");
 
     if (!user) {
 
