@@ -1,0 +1,8 @@
+# Hide secret config
+js/config.js
+
+# VS Code
+.vscode/
+
+# Node
+node_modules/
