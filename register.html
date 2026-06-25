@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PriceWatch - Register</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+
+    <script src="js/config.js"></script>
+    <script src="js/supabase.js"></script>
+    <script src="js/auth.js"></script>
+</head>
+
+<body>
+
+    <h1>Create Account</h1>
+
+    <form id="registerForm">
+
+        <div>
+            <label>Full Name</label><br>
+            <input
+                type="text"
+                id="fullName"
+                required
+            >
+        </div>
+
+        <br>
+
+        <div>
+            <label>Email</label><br>
+            <input
+                type="email"
+                id="email"
+                required
+            >
+        </div>
+
+        <br>
+
+        <div>
+            <label>Phone Number</label><br>
+            <input
+                type="text"
+                id="phone"
+            >
+        </div>
+
+        <br>
+
+        <div>
+            <label>Password</label><br>
+            <input
+                type="password"
+                id="password"
+                required
+            >
+        </div>
+
+        <br>
+
+        <button type="submit">
+            Register
+        </button>
+
+    </form>
+
+    <br>
+
+    <a href="login.html">
+        Already have an account? Login
+    </a>
+
+    <script>
+
+        document
+            .getElementById("registerForm")
+            .addEventListener("submit", async function(e){
+
+                e.preventDefault();
+
+                const fullName =
+                    document.getElementById("fullName").value;
+
+                const email =
+                    document.getElementById("email").value;
+
+                const phone =
+                    document.getElementById("phone").value;
+
+                const password =
+                    document.getElementById("password").value;
+
+                await registerUser(
+                    fullName,
+                    email,
+                    phone,
+                    password
+                );
+
+            });
+
+    </script>
+
+</body>
+</html>

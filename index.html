@@ -1,28 +1,136 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>PriceWatch</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PriceWatch Dashboard</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+
+    <!-- JavaScript Files -->
+    <script src="js/config.js"></script>
+    <script src="js/supabase.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script src="js/products.js"></script>
 </head>
+
 <body>
 
-    <h1>PriceWatch</h1>
+    <header>
+        <h1>PriceWatch Dashboard</h1>
 
-    <table border="1">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Current Price</th>
-                <th>Target Price</th>
-            </tr>
-        </thead>
+        <button onclick="logoutUser()">
+            Logout
+        </button>
+    </header>
 
-        <tbody id="products">
-        </tbody>
+    <hr>
 
-    </table>
+    <section>
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="script.js"></script>
+        <h2>Welcome</h2>
+
+        <p id="welcomeUser">
+            Welcome User
+        </p>
+
+    </section>
+
+    <hr>
+
+    <section>
+
+        <h2>Dashboard Summary</h2>
+
+        <div>
+
+            <p>
+                Total Products :
+                <span id="totalProducts">0</span>
+            </p>
+
+            <p>
+                Price Increased :
+                <span id="priceIncreased">0</span>
+            </p>
+
+            <p>
+                Price Decreased :
+                <span id="priceDecreased">0</span>
+            </p>
+
+            <p>
+                No Change :
+                <span id="noChange">0</span>
+            </p>
+
+        </div>
+
+    </section>
+
+    <hr>
+
+    <section>
+
+        <button onclick="window.location.href='add-product.html'">
+            + Track New Product
+        </button>
+
+    </section>
+
+    <hr>
+
+    <section>
+
+        <h2>My Tracked Products</h2>
+
+        <table border="1" width="100%" cellpadding="10">
+
+            <thead>
+
+                <tr>
+
+                    <th>Product Name</th>
+
+                    <th>Website</th>
+
+                    <th>Current Price</th>
+
+                    <th>Previous Price</th>
+
+                    <th>Price Change</th>
+
+                    <th>Status</th>
+
+                    <th>Last Checked</th>
+
+                    <th>Action</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody id="productsTable">
+
+                <!-- Products will load here -->
+
+            </tbody>
+
+        </table>
+
+    </section>
+
+    <script>
+
+        checkLogin();
+
+        loadDashboard();
+
+    </script>
 
 </body>
 </html>

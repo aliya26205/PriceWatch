@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PriceWatch - Login</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+
+    <script src="js/config.js"></script>
+    <script src="js/supabase.js"></script>
+    <script src="js/auth.js"></script>
+</head>
+
+<body>
+
+    <h1>Login</h1>
+
+    <form id="loginForm">
+
+        <div>
+            <label>Email</label><br>
+            <input
+                type="email"
+                id="email"
+                required
+            >
+        </div>
+
+        <br>
+
+        <div>
+            <label>Password</label><br>
+            <input
+                type="password"
+                id="password"
+                required
+            >
+        </div>
+
+        <br>
+
+        <button type="submit">
+            Login
+        </button>
+
+    </form>
+
+    <br>
+
+    <a href="register.html">
+        Don't have an account? Register
+    </a>
+
+    <script>
+
+        document
+            .getElementById("loginForm")
+            .addEventListener("submit", async function(e){
+
+                e.preventDefault();
+
+                const email =
+                    document.getElementById("email").value;
+
+                const password =
+                    document.getElementById("password").value;
+
+                await loginUser(
+                    email,
+                    password
+                );
+
+            });
+
+    </script>
+
+</body>
+</html>
