@@ -1,5 +1,5 @@
 # Hide secret config
-js/config.js
+#js/config.js
 
 # VS Code
 .vscode/
