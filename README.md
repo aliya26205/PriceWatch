@@ -7,3 +7,6 @@ PriceWatch is a web application that helps users monitor product prices and rece
 - Product Price Tracking
 - Dashboard
 - Responsive Interface
+ ## Version 1.1
+
+Minor documentation update
